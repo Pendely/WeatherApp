@@ -1,0 +1,10 @@
+spring.application.name: WeatherApp
+
+server:
+  contextPath: /weatherapp
+  port: 8080
+
+openWeather:
+  host: https://api.openweathermap.org
+  codePath: /data/2.5/onecall?lat={lat}&lon={lon}&exclude={exclude}&appid=994e2f458aca51204ad4e8b177bafc95
+  updateRate: 300

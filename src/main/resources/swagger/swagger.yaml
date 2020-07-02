@@ -1,0 +1,121 @@
+swagger: '2.0'
+info:
+  description: Weather
+  version: 1.0.0
+  title: Weather App
+
+host: localhost:8080
+basePath: /weatherapp
+schemes:
+  - https
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+
+paths:
+  '/manage/health':
+    get:
+      tags:
+        - health
+      summary: Health check
+      description: API will respond with "UP" if healthy
+      operationId: healthCheck
+      parameters:
+        - name: apikey
+          in: query
+          description: The unique consumer (client) identifier 32 characters
+          required: true
+          type: string
+          x-data-threescale-name: user_keys
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Health'
+
+  '/':
+    get:
+      tags:
+        - 'Weather'
+      summary: Find weather
+      description: get the weather
+      operationId: findweather
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/OpenWeatherResponse'
+
+definitions:
+
+  OpenWeatherResponse:
+    type: object
+    properties:
+      lat:
+        type: string
+      lon:
+        type: string
+      timezone:
+        type: string
+      current:
+        $ref: '#/definitions/Current'
+
+  Current:
+    type: object
+    properties:
+      dt:
+        type: integer
+      sunrise:
+        type: string
+      sunset:
+        type: string
+      temp:
+        type: string
+      feels_like:
+        type: string
+      pressure:
+        type: string
+      humidity:
+        type: string
+      dew_point:
+        type: string
+      uvi:
+        type: string
+      clouds:
+        type: string
+      visibility:
+        type: string
+      wind_speed:
+        type: string
+      wind_deg:
+        type: string
+      weather:
+        type: array
+        items:
+          $ref: '#/definitions/Weather'
+
+  Weather:
+    type: object
+    properties:
+      id:
+        type: string
+      main:
+        type: string
+      description:
+        type: string
+      icon:
+        type: string
+
+  Health:
+    description: API will respond with “UP” if healthy
+    type: object
+    properties:
+      status:
+        type: string
+        example: 'UP'
+    xml:
+      name: Health
