@@ -2,3 +2,6 @@
 /target/
 weatherApp.iml
 .idea
+
+# Mac
+.DS_Store
